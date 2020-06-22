@@ -1,0 +1,3 @@
+/media/stephi/930GB.DATA/MyPrograms/myCppPrograms/200619_Pi/CMakeFiles/rebuild_cache.dir
+/media/stephi/930GB.DATA/MyPrograms/myCppPrograms/200619_Pi/CMakeFiles/Pi.dir
+/media/stephi/930GB.DATA/MyPrograms/myCppPrograms/200619_Pi/CMakeFiles/edit_cache.dir
