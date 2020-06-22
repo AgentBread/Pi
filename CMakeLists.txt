@@ -9,7 +9,7 @@ file(GLOB CORE_SOURCES ${PROJECT_SOURCE_DIR}/*.cpp)
 add_executable(Pi ${CORE_SOURCES})
 
 include_directories(${CORE_HEADER_SRC})
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+set(CMAKE_MODULE_PATH "/home/stephi/Desktop/Codes/sfml2build/sfml2src/cmake" ${CMAKE_MODULE_PATH})
 find_package(SFML 2 REQUIRED system window graphics network audio)
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})

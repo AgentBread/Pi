@@ -37,21 +37,21 @@ int main( int argc , char *argv[ ] ) {
 	make_coords ( ITERATIONS , pdots ) ;
 	std::cout << "Estimation of Pi:" << estimate_pi ( ITERATIONS , dots ) << std::endl ;
   
-	// //drawing a circle:
-  // sf::RenderWindow window( sf::VideoMode( 200, 200 ) , "SFML works...for now." ) ;
-  // sf::CircleShape shape( 100.f ) ;
-  // shape.setFillColor( sf::Color::Green ) ;
-  // while ( window.isOpen( ) ) { 
-	// 	sf::Event event ;
-  //   while ( window.pollEvent( event ) ) {
-	//     if ( event.type == sf::Event::Closed ) {
-  //       window.close( ) ;
-  //     }
-	// 	}
-  //   window.clear( ) ;
-  //   window.draw( shape ) ;
-  //   window.display( ) ;
-  //   }
+	//drawing a circle:
+  sf::RenderWindow window( sf::VideoMode( 200, 200 ) , "SFML works...for now." ) ;
+  sf::CircleShape shape( 100.f ) ;
+  shape.setFillColor( sf::Color::Green ) ;
+  while ( window.isOpen( ) ) { 
+		sf::Event event ;
+    while ( window.pollEvent( event ) ) {
+	    if ( event.type == sf::Event::Closed ) {
+        window.close( ) ;
+      }
+		}
+    window.clear( ) ;
+    window.draw( shape ) ;
+    window.display( ) ;
+    }
 	return 0 ;
 }
 
