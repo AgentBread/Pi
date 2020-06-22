@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/stephi/930GB.DATA/MyPrograms/myCppPrograms/200619_Pi/pi.cpp
+iostream
+-
+vector
+-
+tuple
+-
+math.h
+-
+time.h
+-
+SFML/Graphics.hpp
+-
+
