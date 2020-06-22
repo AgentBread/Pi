@@ -11,5 +11,6 @@
     "functional": "cpp",
     "utility": "cpp",
     "ostream": "cpp"
-  }
+  },
+  "cmake.configureOnOpen": true
 }
