@@ -27,7 +27,7 @@ const int ITERATIONS = 1024 ;
 // FORWARD DECLARATIONS -------------------------------------------------------
 void make_coords ( int , xy_coords* dots ) ;
 double estimate_pi ( int iterations , xy_coords dots ) ;
-
+void draw_window ( xy_coords dots ) ;
 // REMARKS --------------------------------------------------------------------
 
 int main( int argc , char *argv[ ] ) {
@@ -37,21 +37,9 @@ int main( int argc , char *argv[ ] ) {
 	make_coords ( ITERATIONS , pdots ) ;
 	std::cout << "Estimation of Pi:" << estimate_pi ( ITERATIONS , dots ) << std::endl ;
   
-	//drawing a circle:
-  sf::RenderWindow window( sf::VideoMode( 200, 200 ) , "SFML works...for now." ) ;
-  sf::CircleShape shape( 100.f ) ;
-  shape.setFillColor( sf::Color::Green ) ;
-  while ( window.isOpen( ) ) { 
-		sf::Event event ;
-    while ( window.pollEvent( event ) ) {
-	    if ( event.type == sf::Event::Closed ) {
-        window.close( ) ;
-      }
-		}
-    window.clear( ) ;
-    window.draw( shape ) ;
-    window.display( ) ;
-    }
+
+	draw_window( dots ) ;
+	
 	return 0 ;
 }
 
@@ -59,7 +47,6 @@ void make_coords ( int iterations , xy_coords* pdots ) {
 	for ( int i = 0 ; i < iterations ; i++ ) {
 		double x = ( double ) rand( ) / RAND_MAX ;
 		double y = ( double ) rand( ) / RAND_MAX ;
-		//cout << "x:" << x << "y:" << y ; 
 		std::tuple<double , double> coords ( x , y ) ;
     pdots->push_back( coords ) ;
 	}
@@ -76,4 +63,40 @@ double total_num = ITERATIONS ;
 	}
 	double estim_pi = 4 * (square_num / total_num) ;
 	return estim_pi ;
+}
+void draw_window ( xy_coords dots ) {
+  sf::RenderWindow window( sf::VideoMode( 220, 220 ) , "Pi Estimation" ) ;
+  
+	sf::CircleShape circle ;
+	circle.setRadius( 100 ) ;
+	circle.setOutlineColor( sf::Color::Red);
+	circle.setFillColor( sf::Color::Transparent ) ;
+	circle.setOutlineThickness( 1 ) ;
+	circle.setPosition( 10 , 10 ) ;
+
+	sf::RectangleShape rectangle ;
+	rectangle.setSize(sf::Vector2f( 200 , 200 ) ) ;
+	rectangle.setOutlineColor( sf::Color::White ) ;
+	rectangle.setFillColor( sf::Color::Transparent ) ;
+	rectangle.setOutlineThickness( 1 ) ;
+	rectangle.setPosition( 10 , 10 ) ;
+  
+	while ( window.isOpen( ) ) { 
+		sf::Event event ;
+    while ( window.pollEvent( event ) ) {
+	    if ( event.type == sf::Event::Closed ) {
+        window.close( ) ;
+      }
+		}
+    window.clear( ) ;
+		for ( std::tuple<double , double> j : dots ) {
+			double pnt_x = std::get<0>( j ) ; 
+			double pnt_y = std::get<1>( j ) ;
+			sf::Vertex point(sf::Vector2f(pnt_x * 100 + 10, pnt_y * 100 + 10 ), sf::Color::White) ;
+			window.draw(&point, 1, sf::Points) ;
+		}
+		window.draw( circle ) ;
+		window.draw( rectangle ) ;
+    window.display( ) ;
+  }
 }

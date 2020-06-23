@@ -188,7 +188,10 @@ Pi_BINARY_DIR:STATIC=/home/stephi/Desktop/Codes/200619_Pi
 Pi_SOURCE_DIR:STATIC=/home/stephi/Desktop/Codes/200619_Pi
 
 //The directory containing a CMake configuration file for SFML.
-SFML_DIR:PATH=SFML_DIR-NOTFOUND
+SFML_DIR:PATH=/usr/local/lib/cmake/SFML
+
+//Path to a file.
+SFML_DOC_DIR:PATH=SFML_DOC_DIR-NOTFOUND
 
 
 ########################

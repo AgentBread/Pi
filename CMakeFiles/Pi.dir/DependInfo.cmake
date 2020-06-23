@@ -4,13 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/media/stephi/930GB.DATA/MyPrograms/myCppPrograms/200619_Pi/pi.cpp" "/media/stephi/930GB.DATA/MyPrograms/myCppPrograms/200619_Pi/CMakeFiles/Pi.dir/pi.cpp.o"
+  "/home/stephi/Desktop/Codes/200619_Pi/pi.cpp" "/home/stephi/Desktop/Codes/200619_Pi/CMakeFiles/Pi.dir/pi.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "."
+  "/home/stephi/Desktop/Codes/SFML-2.5.1/include"
+  "/usr/local/include"
   )
 
 # Targets to which this target links.
