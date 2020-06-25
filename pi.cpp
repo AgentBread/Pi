@@ -19,7 +19,6 @@
 #include <SFML/Graphics.hpp> //for drawing
 #include <string.h> //to double convert estim_pi to string
 // DEFINES --------------------------------------------------------------------
-//using namespace std ;
 typedef std::vector< std::tuple<double , double> > xy_coords ;
 
 // GLOBAL VARIABLES -----------------------------------------------------------
@@ -32,13 +31,13 @@ void draw_window ( xy_coords dots , double estimate_pi ) ;
 // REMARKS --------------------------------------------------------------------
 
 int main( int argc , char *argv[ ] ) {
-	srand( (unsigned)time( NULL ) ) ;
+	srand( ( unsigned ) time( NULL ) ) ;
 	xy_coords dots = { } ;
 	xy_coords *pdots = &dots ;
 	make_coords ( ITERATIONS , pdots ) ;
 	std::cout << "Estimation of Pi:" << estimate_pi ( ITERATIONS , dots ) << std::endl ;
   
-	draw_window( dots , estimate_pi ( ITERATIONS , dots ) ) ;
+	draw_window( dots , estimate_pi( ITERATIONS , dots ) ) ;
 	
 	return 0 ;
 }
@@ -47,13 +46,13 @@ void make_coords ( int iterations , xy_coords* pdots ) {
 	for ( int i = 0 ; i < iterations ; i++ ) {
 		double x = ( double ) rand( ) / RAND_MAX ;
 		double y = ( double ) rand( ) / RAND_MAX ;
-		std::tuple<double , double> coords ( x , y ) ;
+		std::tuple<double , double> coords( x , y ) ;
     pdots->push_back( coords ) ;
 	}
 }  
 
 double estimate_pi ( int iterations , xy_coords dots ) {
-double total_num = ITERATIONS ;
+	double total_num = ITERATIONS ;
 	double square_num = 0 ;
 	for ( std::tuple<double , double> j : dots ) {
 		double distance = pow( std::get<0>( j ) , 2 ) + pow( std::get<1>( j ) , 2 ) ;
@@ -69,7 +68,7 @@ void draw_window ( xy_coords dots, double estimate_pi ) {
   
 	sf::CircleShape circle ;
 	circle.setRadius( 100 ) ;
-	circle.setOutlineColor( sf::Color::Red);
+	circle.setOutlineColor( sf::Color::Red ) ;
 	circle.setFillColor( sf::Color::Transparent ) ;
 	circle.setOutlineThickness( 1 ) ;
 	circle.setPosition( 10 , 10 ) ;
@@ -85,10 +84,9 @@ void draw_window ( xy_coords dots, double estimate_pi ) {
 	if ( !font.loadFromFile( "blackjack.otf" ) ) {
   	std::cout << "Font not found" << '\n' ;
 	}
-	std::string estim_pi_out = std::to_string(estimate_pi) ;
+	std::string estim_pi_out = std::to_string( estimate_pi ) ;
 	sf::Text text( "Estimated Pi: \n" + estim_pi_out , font ) ;
 	text.setCharacterSize( 20 ) ;
-	//text.setStyle( sf::Text::Bold)  ;
 	text.setFillColor( sf::Color::Red ) ;
 	text.setPosition( 220 , 10 ) ;
 	
@@ -105,8 +103,8 @@ void draw_window ( xy_coords dots, double estimate_pi ) {
 		for ( std::tuple<double , double> j : dots ) {
 			double pnt_x = std::get<0>( j ) ; 
 			double pnt_y = std::get<1>( j ) ;
-			sf::Vertex point(sf::Vector2f(pnt_x * 100 + 10, pnt_y * 100 + 10 ), sf::Color::White) ;
-			window.draw(&point, 1, sf::Points) ;
+			sf::Vertex point( sf::Vector2f( pnt_x * 100 + 10, pnt_y * 100 + 10 ) , sf::Color::White ) ;
+			window.draw( &point , 1 , sf::Points ) ;
 		}
 
 	window.draw( circle ) ;
