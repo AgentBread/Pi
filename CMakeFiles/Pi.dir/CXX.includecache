@@ -19,6 +19,8 @@ time.h
 -
 SFML/Graphics.hpp
 -
+string.h
+-
 
 /home/stephi/Desktop/Codes/SFML-2.5.1/include/SFML/Config.hpp
 TargetConditionals.h

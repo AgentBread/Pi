@@ -17,6 +17,7 @@
 #include <math.h> //for sqrt and pow
 #include <time.h> //for srand
 #include <SFML/Graphics.hpp> //for drawing
+#include <string.h> //to double convert estim_pi to string
 // DEFINES --------------------------------------------------------------------
 //using namespace std ;
 typedef std::vector< std::tuple<double , double> > xy_coords ;
@@ -27,7 +28,7 @@ const int ITERATIONS = 1024 ;
 // FORWARD DECLARATIONS -------------------------------------------------------
 void make_coords ( int , xy_coords* dots ) ;
 double estimate_pi ( int iterations , xy_coords dots ) ;
-void draw_window ( xy_coords dots ) ;
+void draw_window ( xy_coords dots , double estimate_pi ) ;
 // REMARKS --------------------------------------------------------------------
 
 int main( int argc , char *argv[ ] ) {
@@ -37,8 +38,7 @@ int main( int argc , char *argv[ ] ) {
 	make_coords ( ITERATIONS , pdots ) ;
 	std::cout << "Estimation of Pi:" << estimate_pi ( ITERATIONS , dots ) << std::endl ;
   
-
-	draw_window( dots ) ;
+	draw_window( dots , estimate_pi ( ITERATIONS , dots ) ) ;
 	
 	return 0 ;
 }
@@ -64,8 +64,8 @@ double total_num = ITERATIONS ;
 	double estim_pi = 4 * (square_num / total_num) ;
 	return estim_pi ;
 }
-void draw_window ( xy_coords dots ) {
-  sf::RenderWindow window( sf::VideoMode( 220, 220 ) , "Pi Estimation" ) ;
+void draw_window ( xy_coords dots, double estimate_pi ) {
+  sf::RenderWindow window( sf::VideoMode( 440 , 220 ) , "Pi Estimation" ) ;
   
 	sf::CircleShape circle ;
 	circle.setRadius( 100 ) ;
@@ -81,6 +81,19 @@ void draw_window ( xy_coords dots ) {
 	rectangle.setOutlineThickness( 1 ) ;
 	rectangle.setPosition( 10 , 10 ) ;
   
+	sf::Font font ;
+	if ( !font.loadFromFile( "blackjack.otf" ) ) {
+  	std::cout << "Font not found" << '\n' ;
+	}
+	std::string estim_pi_out = std::to_string(estimate_pi) ;
+	sf::Text text( "Estimated Pi: \n" + estim_pi_out , font ) ;
+	text.setCharacterSize( 20 ) ;
+	//text.setStyle( sf::Text::Bold)  ;
+	text.setFillColor( sf::Color::Red ) ;
+	text.setPosition( 220 , 10 ) ;
+	
+	window.clear( ) ;
+
 	while ( window.isOpen( ) ) { 
 		sf::Event event ;
     while ( window.pollEvent( event ) ) {
@@ -88,15 +101,18 @@ void draw_window ( xy_coords dots ) {
         window.close( ) ;
       }
 		}
-    window.clear( ) ;
+		
 		for ( std::tuple<double , double> j : dots ) {
 			double pnt_x = std::get<0>( j ) ; 
 			double pnt_y = std::get<1>( j ) ;
 			sf::Vertex point(sf::Vector2f(pnt_x * 100 + 10, pnt_y * 100 + 10 ), sf::Color::White) ;
 			window.draw(&point, 1, sf::Points) ;
 		}
-		window.draw( circle ) ;
-		window.draw( rectangle ) ;
-    window.display( ) ;
+
+	window.draw( circle ) ;
+	window.draw( rectangle ) ;
+	window.draw( text ) ;
+
+  window.display( ) ;
   }
 }
