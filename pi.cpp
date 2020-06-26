@@ -2,7 +2,7 @@
  Name: pi.cpp
  Author: Stephanie Walcher
  Version.Revision: 1.0
- Date: 20 June 2020
+ Release Date: 26 June 2020
 
  // MAIN ---------------------------------------------------------------------- 
  parameters: none
@@ -63,6 +63,7 @@ double estimate_pi ( int iterations , xy_coords dots ) {
 	double estim_pi = 4 * (square_num / total_num) ;
 	return estim_pi ;
 }
+
 void draw_window ( xy_coords dots, double estimate_pi ) {
   sf::RenderWindow window( sf::VideoMode( 440 , 220 ) , "Pi Estimation" ) ;
   
@@ -98,19 +99,16 @@ void draw_window ( xy_coords dots, double estimate_pi ) {
 	    if ( event.type == sf::Event::Closed ) {
         window.close( ) ;
       }
+		window.draw( circle ) ;
+		window.draw( rectangle ) ;
+		window.draw( text ) ;
 		}
-		
 		for ( std::tuple<double , double> j : dots ) {
 			double pnt_x = std::get<0>( j ) ; 
 			double pnt_y = std::get<1>( j ) ;
 			sf::Vertex point( sf::Vector2f( pnt_x * 100 + 10, pnt_y * 100 + 10 ) , sf::Color::White ) ;
 			window.draw( &point , 1 , sf::Points ) ;
 		}
-
-	window.draw( circle ) ;
-	window.draw( rectangle ) ;
-	window.draw( text ) ;
-
-  window.display( ) ;
+		window.display( ) ;
   }
 }
