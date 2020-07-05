@@ -1,1 +1,0 @@
-/usr/bin/c++   -std=c++11   CMakeFiles/Pi.dir/pi.cpp.o  -o Pi  -L/home/stephi/Desktop/Codes/SFML-2.5.1/lib -Wl,-rpath,/usr/local/lib:/home/stephi/Desktop/Codes/SFML-2.5.1/lib /usr/local/lib/libsfml-graphics.so.2.5.1 /usr/local/lib/libsfml-window.so.2.5.1 /usr/local/lib/libsfml-system.so.2.5.1 
