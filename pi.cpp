@@ -1,8 +1,8 @@
 /* 
  Name: pi.cpp
  Author: Stephanie Walcher
- Version.Revision: 1.0
- Release Date: 26 June 2020
+ Version.Revision: 1.1
+ Release Date: 05 July 2020
 
  // MAIN ---------------------------------------------------------------------- 
  parameters: none
@@ -20,24 +20,29 @@
 #include <string.h> //to double convert estim_pi to string
 // DEFINES --------------------------------------------------------------------
 typedef std::vector< std::tuple<double , double> > xy_coords ;
-
 // GLOBAL VARIABLES -----------------------------------------------------------
-const int ITERATIONS = 1024 ;
-
 // FORWARD DECLARATIONS -------------------------------------------------------
-void make_coords ( int , xy_coords* dots ) ;
-double estimate_pi ( int iterations , xy_coords dots ) ;
-void draw_window ( xy_coords dots , double estimate_pi ) ;
+void make_coords ( int , xy_coords* pdots ) ;
+double estimate_pi ( int iterations , xy_coords* pdots ) ;
+void draw_window ( xy_coords* pdots , double estimate_pi ) ;
 // REMARKS --------------------------------------------------------------------
 
 int main( int argc , char *argv[ ] ) {
+	int iterations ;
+	if ( argc == 1 ) {
+		iterations = 1024  ;
+		std::cout << "Iterations automatically set to " << iterations << std::endl ;
+	}
+	else {
+		iterations = std::stoi( argv[ 1 ] ) ;
+	}
 	srand( ( unsigned ) time( NULL ) ) ;
 	xy_coords dots = { } ;
 	xy_coords *pdots = &dots ;
-	make_coords ( ITERATIONS , pdots ) ;
-	std::cout << "Estimation of Pi:" << estimate_pi ( ITERATIONS , dots ) << std::endl ;
+	make_coords ( iterations , pdots ) ;
+	std::cout << "Estimation of Pi:" << estimate_pi ( iterations , pdots ) << std::endl ;
   
-	draw_window( dots , estimate_pi( ITERATIONS , dots ) ) ;
+	draw_window( pdots , estimate_pi( iterations , pdots ) ) ;
 	
 	return 0 ;
 }
@@ -51,10 +56,10 @@ void make_coords ( int iterations , xy_coords* pdots ) {
 	}
 }  
 
-double estimate_pi ( int iterations , xy_coords dots ) {
-	double total_num = ITERATIONS ;
+double estimate_pi ( int iterations , xy_coords* pdots ) {
+	double total_num = iterations ;
 	double square_num = 0 ;
-	for ( std::tuple<double , double> j : dots ) {
+	for ( auto& j : *pdots ) { 
 		double distance = pow( std::get<0>( j ) , 2 ) + pow( std::get<1>( j ) , 2 ) ;
 		if ( distance < 1 ) {
 			square_num++ ;
@@ -64,7 +69,7 @@ double estimate_pi ( int iterations , xy_coords dots ) {
 	return estim_pi ;
 }
 
-void draw_window ( xy_coords dots, double estimate_pi ) {
+void draw_window ( xy_coords* pdots, double estimate_pi ) {
   sf::RenderWindow window( sf::VideoMode( 440 , 220 ) , "Pi Estimation" ) ;
   
 	sf::CircleShape circle ;
@@ -89,9 +94,7 @@ void draw_window ( xy_coords dots, double estimate_pi ) {
 	sf::Text text( "Estimated Pi: \n" + estim_pi_out , font ) ;
 	text.setCharacterSize( 20 ) ;
 	text.setFillColor( sf::Color::Red ) ;
-	text.setPosition( 220 , 10 ) ;
-	
-	window.clear( ) ;
+	text.setPosition( (int)220 , (int)10 ) ;
 
 	while ( window.isOpen( ) ) { 
 		sf::Event event ;
@@ -99,11 +102,12 @@ void draw_window ( xy_coords dots, double estimate_pi ) {
 	    if ( event.type == sf::Event::Closed ) {
         window.close( ) ;
       }
+		}
+		window.clear( ) ;
 		window.draw( circle ) ;
 		window.draw( rectangle ) ;
 		window.draw( text ) ;
-		}
-		for ( std::tuple<double , double> j : dots ) {
+		for ( auto& j : *pdots ) {
 			double pnt_x = std::get<0>( j ) ; 
 			double pnt_y = std::get<1>( j ) ;
 			sf::Vertex point( sf::Vector2f( pnt_x * 100 + 10, pnt_y * 100 + 10 ) , sf::Color::White ) ;
